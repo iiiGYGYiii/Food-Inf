@@ -1,0 +1,14 @@
+{
+  "name": "nutrition-app",
+  "version": "1.0.0",
+  "description": "A Web App for nutrition information about food.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nutrition"
+  ],
+  "author": "iiiGYGYiii",
+  "license": "ISC"
+}
