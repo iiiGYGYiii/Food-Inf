@@ -2,7 +2,7 @@ import express from 'express';
 import translate from "translate";
 import https from 'https';
 import dotenv from 'dotenv';
-
+import _ from "lodash";
 
 dotenv.config();
 
@@ -31,22 +31,30 @@ app.route('/')
 })
 .post((req,res)=>{
     //const text = await translate("café y pan", "en");
-    const transText = translateUserResponse(req.body.userResponse);
-    let url = API_URL + req.body.userResponse;
-    https.get(url, (response)=>{
-        const chunks = [];
-        response.on('data', function (chunk) {
-          chunks.push(chunk);
-        })
+    translate(req.body.userResponse, {to:"en"}).then(text=>{
+        let ntext = _.join(text.split(" ").map(word=> _.capitalize(word)), " ");
+        let url = API_URL + ntext;
+        
+        https.get(url, (response)=>{
+            const chunks = [];
+            response.on('data', function (chunk) {
+                chunks.push(chunk);
+            });
+            response.on('end', function () {
+                const data = Buffer.concat(chunks);
+                let got = JSON.parse(data);
+                let foodArray = got.parsed;
+                console.log(foodArray);
+                res.render("foodinf",{
+                    theTitle: "Food Inf",
+                    homeActive: "nav-link subtles active",
+                    aboutActive: "nav-link subtles",
+                    foodArray: foodArray
+                });
+            });
+    }); 
     
-        response.on('end', function () {
-          const data = Buffer.concat(chunks);
-          let got = JSON.parse(data);
-          //console.log(got.parsed[0].food.nutrients);
-          console.log(got)
-        })
-    });
-    res.redirect("/");
+});  
 });
 
 app.route("/about")
@@ -65,10 +73,4 @@ if (!PORT){
 
 app.listen(PORT, ()=>{
     console.log(`App is running on port ${PORT}`);
-})
-
-
-async function translateUserResponse(userResponse){
-    const text = await translate(userResponse, "es");
-    return text;
-}
+});
