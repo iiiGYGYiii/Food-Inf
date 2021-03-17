@@ -99,6 +99,10 @@ a i:hover{
     margin: 3rem auto;
 }
 
+.hide{
+    display: none;
+}
+
 .subtles{
     font-family: 'Josefin Sans', sans-serif;
     font-size: 1.375rem;

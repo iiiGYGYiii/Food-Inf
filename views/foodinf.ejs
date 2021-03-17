@@ -1,5 +1,31 @@
 <%- include("partials/header") %> 
-
-Hello World
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <% for (let item of foodArray){ %>
+    <div class="col py-5 px-5">
+      <div class="card h-100" style="width: 18rem;">
+          
+          <img src="<%= item.food.image %> " class="card-img-top" alt="<%= item.food.label %> ">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.food.label %> </h5>
+            <p class="card-text">Información:</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Calorías: <%= item.food.nutrients.ENERC_KCAL %> Kcal</li>
+            <li class="list-group-item">Grasas: <%= item.food.nutrients.FAT %> g</li>
+            <li class="list-group-item">Proteína: <%= item.food.nutrients.PROCNT %> g</li>
+          </ul>
+        </div>
+    </div>
+    <%  }  %>
+    <div class="col py-5 px-5">
+      <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Total de Calorías:</div>
+        <div class="card-body">
+          <h5 class="card-title center"><%= totalKCAL %> kcal</h5>
+          <p class="card-text">Recuerda que este es un aproximado y que no estamos tomando en cuenta las porciones :)</p>
+        </div>
+      </div>
+    </div>
+</div>
 
 <%- include("partials/footer") %> 

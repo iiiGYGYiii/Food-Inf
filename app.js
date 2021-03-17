@@ -44,12 +44,16 @@ app.route('/')
                 const data = Buffer.concat(chunks);
                 let got = JSON.parse(data);
                 let foodArray = got.parsed;
-                console.log(foodArray);
+                let kcalTotal = 0;
+                for (let item of foodArray){
+                    kcalTotal += item.food.nutrients.ENERC_KCAL;
+                }
                 res.render("foodinf",{
                     theTitle: "Food Inf",
                     homeActive: "nav-link subtles active",
                     aboutActive: "nav-link subtles",
-                    foodArray: foodArray
+                    foodArray: foodArray,
+                    totalKCAL: kcalTotal
                 });
             });
     }); 
