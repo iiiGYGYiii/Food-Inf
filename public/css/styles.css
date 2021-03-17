@@ -1,6 +1,25 @@
+/*
+    Color palete: #ff9f1c
+    #ffbf69
+    #ffffff
+    #cbf3f0
+    #2ec4b6
+*/
+a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #003f88;
+}
+
+h1,h2,h3{
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 body{
     font-family: 'Roboto', sans-serif;
 }
+
+
 
 footer{
     background-color: #2ec4b6;
@@ -16,11 +35,25 @@ main > .container {
     padding: 60px 15px 0;
 }
 
-span a{
-    text-decoration: none;
-    color: #003f88;
+
+
+a i{
+    font-size: 3rem;
+    margin: auto 2rem; 
+    color: #ffbf69;
 }
 
+a i:hover{
+    color: #EB8900;
+}
+
+.aboutPar{
+    margin: 3rem auto;
+}
+
+.boldtext{
+    font-weight: bold;
+}
 
 .subtles{
     font-family: 'Josefin Sans', sans-serif;

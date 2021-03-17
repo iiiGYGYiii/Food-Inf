@@ -10,14 +10,18 @@ app.use(express.static("public"));
 app.route('/')
 .get((req,res)=>{
     res.render("home", {
-        theTitle: 'Inicio'
+        theTitle: 'Inicio',
+        homeActive: "nav-link subtles active",
+        aboutActive: "nav-link subtles"
     })
 });
 
 app.route("/about")
 .get((req,res)=>{
     res.render("about", {
-        theTitle: "Sobre Mí"
+        theTitle: "Sobre Mí",
+        homeActive: "nav-link subtles",
+        aboutActive: "nav-link subtles active"
     })
 });
 
