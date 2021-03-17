@@ -1,7 +1,17 @@
 <%- include('partials/header') %> 
 <main class="flex-shrink-0">
-    <div class="container">
-        <p>Hola Mundo</p>
+    <div class="container center">
+        <h2>¿Qué cantidad calórica has consumido?</h2>
+        <div class="container center">
+            <form class="center" action="/" method="POST">
+                <div class="container mt-4">
+                    <textarea class="textinput" name="userResponse" id="" placeholder="Escribe aquí tus alimentos :)" cols="30" rows="10"></textarea>
+                </div>
+                <div class="container-btn">
+                    <input class="bttn" value="¡Calcular!" type="submit">
+                </div>
+            </form>
+        </div>
     </div>
 </main>
 <%- include('partials/footer') %> 

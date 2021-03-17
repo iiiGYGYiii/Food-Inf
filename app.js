@@ -1,6 +1,20 @@
 import express from 'express';
+import translate from "translate";
+import https from 'https';
+import dotenv from 'dotenv';
+import _ from "lodash";
+
+dotenv.config();
+
+const API_ID = process.env.API_ID;
+const API_KEY = process.env.API_KEY;
+const API_URL = `https://api.edamam.com/api/food-database/v2/parser?app_id=${API_ID}&app_key=${API_KEY}&ingr=`
+
+translate.engine='libre';
+translate.from="es";
 
 const app = express();
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({
     extended: true
@@ -14,6 +28,33 @@ app.route('/')
         homeActive: "nav-link subtles active",
         aboutActive: "nav-link subtles"
     })
+})
+.post((req,res)=>{
+    //const text = await translate("café y pan", "en");
+    translate(req.body.userResponse, {to:"en"}).then(text=>{
+        let ntext = _.join(text.split(" ").map(word=> _.capitalize(word)), " ");
+        let url = API_URL + ntext;
+        
+        https.get(url, (response)=>{
+            const chunks = [];
+            response.on('data', function (chunk) {
+                chunks.push(chunk);
+            });
+            response.on('end', function () {
+                const data = Buffer.concat(chunks);
+                let got = JSON.parse(data);
+                let foodArray = got.parsed;
+                console.log(foodArray);
+                res.render("foodinf",{
+                    theTitle: "Food Inf",
+                    homeActive: "nav-link subtles active",
+                    aboutActive: "nav-link subtles",
+                    foodArray: foodArray
+                });
+            });
+    }); 
+    
+});  
 });
 
 app.route("/about")
@@ -25,7 +66,11 @@ app.route("/about")
     })
 });
 
+let PORT = process.env.PORT;
+if (!PORT){
+    PORT = 3000;
+}
 
-app.listen(3000 | process.env.PORT, ()=>{
-    console.log("Aplicación corriendo en el puerto 3000");
-})
+app.listen(PORT, ()=>{
+    console.log(`App is running on port ${PORT}`);
+});
