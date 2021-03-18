@@ -39,6 +39,14 @@ app.route("/about")
     })
 });
 
+app.get('*', function(req, res){
+    res.render("404",{
+        theTitle: "Sobre Mí",
+        homeActive: "nav-link subtles",
+        aboutActive: "nav-link subtles"
+    });
+});
+
 let PORT = process.env.PORT;
 if (!PORT){
     PORT = 3000;
