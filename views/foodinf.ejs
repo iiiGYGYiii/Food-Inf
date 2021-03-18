@@ -1,5 +1,31 @@
 <%- include("partials/header") %> 
-
-Hello World
+<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-4 center">
+    <% for (let item of data){ %>
+    <div class="col py-5 px-5">
+      <div class="card h-100" style="width: 18rem;">
+          
+          <img src="<%= item.imagen %> " class="card-img-top" alt="<%= item.nombre %> ">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.nombre %> </h5>
+            <p class="card-text">En una porción de 100 gramos de <%= item.nombre %> se obtienen:</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Calorías: <%= item.calorias %> Kcal</li>
+            <li class="list-group-item">Grasas: <%= item.grasas %> g</li>
+            <li class="list-group-item">Proteína: <%= item.proteina %> g</li>
+          </ul>
+        </div>
+    </div>
+    <%  }  %>
+    <div class="col py-5 px-5">
+      <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Total de Calorías:</div>
+        <div class="card-body">
+          <h5 class="card-title center"><%= totalKCAL %> kcal</h5>
+          <p class="card-text">Recuerda tener una dieta balanceada y hacer consultas con expertos en el tema :)</p>
+        </div>
+      </div>
+    </div>
+</div>
 
 <%- include("partials/footer") %> 

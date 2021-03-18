@@ -1,15 +1,17 @@
 <%- include('partials/header') %> 
-<main class="flex-shrink-0">
-    <div class="container center">
+<main class="flex-shrink-0 h-100">
+    <div class="container center h-100">
         <h2>¿Qué cantidad calórica has consumido?</h2>
+        <h3 id="subTitle">(O pretendes consumir <span style="font-style: normal;"> 😉</span>)</h3>
         <div class="container center">
             <form class="center" action="/" method="POST">
                 <div class="container mt-4">
-                    <textarea class="textinput" name="userResponse" id="" placeholder="Escribe aquí tus alimentos :)" cols="30" rows="10"></textarea>
+                    <textarea class="textinput" name="userResponse" id="" placeholder="Escribe aquí tus alimentos :) Por ejemplo: Pollo, champiñones, pizza Y queso. (No olvides poner Y, de lo contrario el algoritmo no reconocera los primeros alimentos)." cols="30" rows="10"></textarea>
                 </div>
                 <div class="container-btn">
                     <input class="bttn" value="¡Calcular!" type="submit">
                 </div>
+                <div id="edamam-badge" data-color="white"></div>
             </form>
         </div>
     </div>
