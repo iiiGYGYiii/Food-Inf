@@ -1,17 +1,12 @@
 import express from 'express';
-import translate from "translate";
-import https from 'https';
-import dotenv from 'dotenv';
 import _ from "lodash";
+import {getFoodInf, searchFoodID, calcCalories} from "./pro/apiconnection.js";
 
-dotenv.config();
-
-const API_ID = process.env.API_ID;
-const API_KEY = process.env.API_KEY;
-const API_URL = `https://api.edamam.com/api/food-database/v2/parser?app_id=${API_ID}&app_key=${API_KEY}&ingr=`
-
-translate.engine='libre';
-translate.from="es";
+const headerObj = {
+    theTitle: 'Inicio',
+    homeActive: "nav-link subtles active",
+    aboutActive: "nav-link subtles"
+};
 
 const app = express();
 
@@ -23,42 +18,16 @@ app.use(express.static("public"));
 
 app.route('/')
 .get((req,res)=>{
-    res.render("home", {
-        theTitle: 'Inicio',
-        homeActive: "nav-link subtles active",
-        aboutActive: "nav-link subtles"
-    })
+    res.render("home", headerObj)
 })
 .post((req,res)=>{
-    //const text = await translate("café y pan", "en");
-    translate(req.body.userResponse, {to:"en"}).then(text=>{
-        let ntext = _.join(text.split(" ").map(word=> _.capitalize(word)), " ");
-        let url = API_URL + ntext;
-        
-        https.get(url, (response)=>{
-            const chunks = [];
-            response.on('data', function (chunk) {
-                chunks.push(chunk);
-            });
-            response.on('end', function () {
-                const data = Buffer.concat(chunks);
-                let got = JSON.parse(data);
-                let foodArray = got.parsed;
-                let kcalTotal = 0;
-                for (let item of foodArray){
-                    kcalTotal += item.food.nutrients.ENERC_KCAL;
-                }
-                res.render("foodinf",{
-                    theTitle: "Food Inf",
-                    homeActive: "nav-link subtles active",
-                    aboutActive: "nav-link subtles",
-                    foodArray: foodArray,
-                    totalKCAL: kcalTotal
-                });
-            });
-    }); 
-    
-});  
+    getFoodInf(searchFoodID(req.body.userResponse)).then((data)=>{
+        res.render("foodinf",{
+            ...headerObj,
+            data: data,
+            totalKCAL: calcCalories(data)
+        })
+    });
 });
 
 app.route("/about")

@@ -116,3 +116,7 @@ a i:hover{
     resize: none;
     border: 1px solid grey;
 }
+
+#subTitle{
+    font-style: italic;
+}
