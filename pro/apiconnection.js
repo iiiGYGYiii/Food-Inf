@@ -6,7 +6,7 @@ dotenv.config();
 
 const API_ID = process.env.API_ID;
 const API_KEY = process.env.API_KEY;
-const API_URL = `https://api.edamam.com/api/food-database/v2/parser?app_id=${API_ID}&app_key=${API_KEY}&ingr=`
+const API_URL = `https://api.edamam.com/api/food-database/v2/parser?app_id=${API_ID}&app_key=${API_KEY}&nutrition-type=logging&ingr=`
 const NUTRIENTS_URL = `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${API_ID}&app_key=${API_KEY}`
 
 translate.engine='libre';
