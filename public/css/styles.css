@@ -120,3 +120,7 @@ a i:hover{
 #subTitle{
     font-style: italic;
 }
+
+.g-4, .row{
+    --bs-gutter-x: 0;
+}
