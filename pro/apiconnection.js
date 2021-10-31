@@ -110,8 +110,4 @@ function calcCalories(foodArray) {
   return totalCalories;
 }
 
-function ghostFunction() {
-  console.log("Ghost function that will not harm my app.");
-}
-
 export { searchFoodID, getFoodInf, calcCalories };
